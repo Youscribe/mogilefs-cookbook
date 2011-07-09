@@ -16,18 +16,18 @@ Please help increase the supported platform list by notifying me or submitting p
 Attributes
 ==========
 
-* +mogilefs[:bin_path]+ - Directory path to MogileFS binaries
-* +mogilefs[:dir]+ - Directory path to MogileFS specifics (configuration files, etc)
-* +mogilefs[:user]+ - Unprivileged user which will run MogileFS services
-* +mogilefs[:mogilefsd][:conf_port]+ - Port for trackers to listen on. Configurable for mogilefsd.conf
-* +mogilefs[:mogilefsd][:listener_jobs]+ - How many listener jobs. Configurable for mogilefsd.conf
-* +mogilefs[:mogilefsd][:delete_jobs]+ - How many delete jobs. Configurable for mogilefsd.conf
-* +mogilefs[:mogilefsd][:replicate_jobs]+ - How many replicate jobs. Configurable for mogilefsd.conf
-* +mogilefs[:mogilefsd][:reaper_jobs]+ - How many reaper jobs. Configurable for mogilefsd.conf
-* +mogilefs[:mogilefsd][:mog_root]+ - Location of MogileFSD data. Configurable for mogilefsd.conf
-* +mogilefs[:mogstored][:http_listen]+ - HTTP Listen string for storage server. Configurable for mogstored.conf
-* +mogilefs[:mogstored][:mgmt_listen]+ - MGMT Listen string for storage server. Configurable for mogstored.conf
-* +mogilefs[:mogstored][:doc_root]+ - Location of MogileFSD storage data. Configurable for mogstored.conf
+* `mogilefs[:bin_path]` - Directory path to MogileFS binaries
+* `mogilefs[:dir]` - Directory path to MogileFS specifics (configuration files, etc)
+* `mogilefs[:user]` - Unprivileged user which will run MogileFS services
+* `mogilefs[:mogilefsd][:conf_port]` - Port for trackers to listen on. Configurable for mogilefsd.conf
+* `mogilefs[:mogilefsd][:listener_jobs]` - How many listener jobs. Configurable for mogilefsd.conf
+* `mogilefs[:mogilefsd][:delete_jobs]` - How many delete jobs. Configurable for mogilefsd.conf
+* `mogilefs[:mogilefsd][:replicate_jobs]` - How many replicate jobs. Configurable for mogilefsd.conf
+* `mogilefs[:mogilefsd][:reaper_jobs]` - How many reaper jobs. Configurable for mogilefsd.conf
+* `mogilefs[:mogilefsd][:mog_root]` - Location of MogileFSD data. Configurable for mogilefsd.conf
+* `mogilefs[:mogstored][:http_listen]` - HTTP Listen string for storage server. Configurable for mogstored.conf
+* `mogilefs[:mogstored][:mgmt_listen]` - MGMT Listen string for storage server. Configurable for mogstored.conf
+* `mogilefs[:mogstored][:doc_root]` - Location of MogileFSD storage data. Configurable for mogstored.conf
 
 Recipes
 =======
