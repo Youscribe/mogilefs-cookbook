@@ -21,13 +21,12 @@
 
 define :mogilefs_datastore, :ipaddress => nil, :port => nil, :hostname => nil, :trackers => [], :http_listen => nil, :mgmt_listen => nil, :owner => "root", :group => "root", :cookbook => "mogilefs", :runit_options => Hash.new do
   require_recipe "mogilefs"
-
-  params[:hostname] ||= params[:name]
+  
   params[:http_listen] ||= node[:mogilefs][:mogstored][:http_listen]
   params[:mgmt_listen] ||= node[:mogilefs][:mogstored][:mgmt_listen]
   params[:doc_root] ||= node[:mogilefs][:mogstored][:doc_root]
   
-  service_name = "mogstored_#{params[:hostname]}"
+  service_name = "mogstored-#{params[:name]}"
   
   runit_options = params[:runit_options]
   runit_options[:cookbook] ||= params[:cookbook]

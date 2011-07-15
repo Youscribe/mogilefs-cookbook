@@ -26,14 +26,14 @@ action :create do
     Chef::Log.info "[mogilefs_device] creating device:#{new_resource.name} devid: #{new_resource.devid}"
     execute "mogadm --trackers=#{new_resource.trackers.join(',')} device add #{new_resource.name} #{new_resource.devid}"
     
-    directory "#{node[:mogilefs][:mogstored][:doc_root]}/dev#{new_resource.devid}" do
-      owner "root"
-      group "root"
-      mode 0755
-      recursive true
-    end
-    
     new_resource.updated_by_last_action(true)
+  end
+  
+  directory "#{node[:mogilefs][:mogstored][:doc_root]}/dev#{new_resource.devid}" do
+    owner "root"
+    group "root"
+    mode 0755
+    recursive true
   end
 end
 

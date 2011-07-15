@@ -23,7 +23,7 @@ define :mogilefs_tracker, :database => { :host => nil, :port => nil, :timeout =>
   require_recipe "mogilefs"
   require_recipe "runit"
   
-  service_name = "mogilefsd_#{params[:name]}"
+  service_name = "mogilefsd-#{params[:name]}"
   
   params[:database][:port] ||= 3306
   params[:database][:timeout] ||= 5
