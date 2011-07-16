@@ -231,7 +231,7 @@ args | Additional arguments to pass to [MogileFS::Admin](http://seattlerb.rubyfo
 
 #### Creating a new host
 
-    mogilefs_host "datastore1" do
+    mogilefs_host node[:fqdn] do
       ipaddress "10.0.2.15"
       port 7501
       trackers ["10.0.2.10:7001", "10.0.2.11:7001"]
