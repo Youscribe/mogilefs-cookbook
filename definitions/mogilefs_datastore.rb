@@ -19,21 +19,21 @@
 # limitations under the License.
 #
 
-define :mogilefs_datastore, :ipaddress => nil, :port => nil, :hostname => nil, :trackers => [], :http_listen => nil, :mgmt_listen => nil, :owner => "root", :group => "root", :cookbook => "mogilefs", :runit_options => Hash.new do
+define :mogilefs_datastore, :ipaddress => nil, :port => nil, :hostname => nil, :trackers => [], :http_listen => nil, :mgmt_listen => nil, :owner => "root", :group => "root", :cookbook => "mogilefs", :service_name => nil, :runit_options => Hash.new do
   require_recipe "mogilefs"
   
+  params[:hostname] ||= params[:name]
+  params[:service_name] ||= "mogstored"
   params[:http_listen] ||= node[:mogilefs][:mogstored][:http_listen]
   params[:mgmt_listen] ||= node[:mogilefs][:mogstored][:mgmt_listen]
   params[:doc_root] ||= node[:mogilefs][:mogstored][:doc_root]
-  
-  service_name = "mogstored-#{params[:name]}"
   
   runit_options = params[:runit_options]
   runit_options[:cookbook] ||= params[:cookbook]
   runit_options[:template_name] ||= 'mogstored'
   runit_options[:run_restart] ||= true
   runit_options[:options] = Hash.new unless runit_options.has_key?(:options)
-  runit_options[:options].merge!(:conf_path => "#{node[:mogilefs][:dir]}/#{service_name}.conf")
+  runit_options[:options].merge!(:conf_path => "#{node[:mogilefs][:dir]}/#{params[:service_name]}.conf")
     
   mogilefs_host params[:hostname] do
     ipaddress params[:ipaddress]
@@ -44,7 +44,7 @@ define :mogilefs_datastore, :ipaddress => nil, :port => nil, :hostname => nil, :
     )
   end
 
-  template "#{node[:mogilefs][:dir]}/#{service_name}.conf" do
+  template "#{node[:mogilefs][:dir]}/#{params[:service_name]}.conf" do
     source "mogstored.conf.erb"
     cookbook params[:cookbook]
     owner params[:owner]
@@ -55,7 +55,7 @@ define :mogilefs_datastore, :ipaddress => nil, :port => nil, :hostname => nil, :
       :mgmt_listen => params[:mgmt_listen],
       :doc_root => params[:doc_root]
     )
-    notifies :restart, "service[#{service_name}]"
+    notifies :restart, "service[#{params[:service_name]}]"
   end
   
   directory "#{node[:mogilefs][:mogstored][:doc_root]}" do
@@ -64,7 +64,7 @@ define :mogilefs_datastore, :ipaddress => nil, :port => nil, :hostname => nil, :
     mode 0755
   end
   
-  runit_service service_name do
+  runit_service params[:service_name] do
     cookbook runit_options[:cookbook]
     template_name runit_options[:template_name]
     options runit_options[:options]
@@ -79,6 +79,6 @@ define :mogilefs_datastore, :ipaddress => nil, :port => nil, :hostname => nil, :
     restart_command runit_options[:restart_command] if runit_options.has_key?(:restart_command)
     status_command runit_options[:status_command] if runit_options.has_key?(:status_command)
     env runit_options[:env] if runit_options.has_key?(:env)
-    notifies :start, "service[#{service_name}]", :immediately
+    notifies :start, "service[#{params[:service_name]}]", :immediately
   end
 end

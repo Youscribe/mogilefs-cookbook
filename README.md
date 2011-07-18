@@ -83,20 +83,21 @@ Configure a node to be a MogileFS storage node. See the [MogileFS Highlevel Over
 ### Parameters
 Name | Description | Default
 -----|-------------|--------
+hostname | Hostname or name of storage node | name
 ipaddress | IP Address for storage node  | 
 port | HTTP Port of storage node | 
-hostname | Hostname or name of storage node | name
 trackers | Array of trackers to notify | []
 http_listen | HTTP Listen string for storage server | cookbook attribute
 mgmt_listen | MGMT Listen string for storage server | cookbook attribute
 owner | owner of service and files | "root"
 group | group of service and files | "root"
 cookbook | used to specify where the mogstored.conf is located | "mogilefs"
+service_name | the name of the service to be defined | "mogstored"
 runit_options | any additional runit service options. Refer to runit cookbook for details | {}
 
 ### Example
 
-    mogilefs_datastore "enmasse_online_storage" do
+    mogilefs_datastore node[:fqdn] do
       ipaddress "10.0.2.20"
       port 7501
       trackers ["10.0.2.10:7001", "10.0.2.11:7001"]
@@ -128,11 +129,11 @@ Configure a node as a MogileFS tracker. See the [MogileFS Highlevel Overview](ht
 ### Parameters
 Name | Description | Default
 -----|-------------|--------
-name | Name of the service and postfix for the template file names | name
-database | a hash of options which must specify the host, database, username, and password of the MogileFS database | 
+database | a hash of options which must specify the host, database, username, and password of the MogileFS 
 owner | owner of configuration files | "root"
 group | group of configuration files | "root"
 cookbook | cookbook that contains the mogilefsd.conf | "mogilefs"
+service_name | the name of the service to be defined | "mogilefsd"
 runit_options | any additional runit service options. Refer to the runit cookbook for details | {}
 
 ### Example
