@@ -21,6 +21,7 @@
 
 include_recipe "perl"
 
+cpan_module "YAML"
 cpan_module "MogileFS::Server"
 cpan_module "MogileFS::Client"
 cpan_module "MogileFS::Utils"
