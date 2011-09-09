@@ -19,12 +19,11 @@
 # limitations under the License.
 #
 
-define :mogilefs_tracker, :database => { :host => nil, :port => nil, :timeout => nil, :username => nil, :password => nil }, :owner => "root", :group => "root", :cookbook => "mogilefs", :runit_options => Hash.new do
+define :mogilefs_tracker, :database => { :host => nil, :port => nil, :timeout => nil, :username => nil, :password => nil }, :owner => "root", :group => "root", :cookbook => "mogilefs", :service_name => nil, :runit_options => Hash.new do
   require_recipe "mogilefs"
   require_recipe "runit"
   
-  service_name = "mogilefsd_#{params[:name]}"
-  
+  params[:service_name] ||= "mogilefsd"
   params[:database][:port] ||= 3306
   params[:database][:timeout] ||= 5
   
@@ -40,9 +39,9 @@ define :mogilefs_tracker, :database => { :host => nil, :port => nil, :timeout =>
   runit_options[:template_name] ||= 'mogilefsd'
   runit_options[:run_restart] ||= true
   runit_options[:options] = Hash.new unless runit_options.has_key?(:options)
-  runit_options[:options].merge!(:conf_path => "#{node[:mogilefs][:dir]}/#{service_name}.conf")
+  runit_options[:options].merge!(:conf_path => "#{node[:mogilefs][:dir]}/#{params[:service_name]}.conf")
   
-  template "#{node[:mogilefs][:dir]}/#{service_name}.conf" do
+  template "#{node[:mogilefs][:dir]}/#{params[:service_name]}.conf" do
     source "mogilefsd.conf.erb"
     cookbook params[:cookbook]
     owner params[:owner]
@@ -57,10 +56,10 @@ define :mogilefs_tracker, :database => { :host => nil, :port => nil, :timeout =>
       :reaper_jobs => params[:reaper_jobs],
       :mog_root => params[:mog_root]
     )
-    notifies :restart, "service[#{service_name}]"
+    notifies :restart, "service[#{params[:service_name]}]"
   end
 
-  runit_service service_name do
+  runit_service params[:service_name] do
     cookbook runit_options[:cookbook]
     template_name runit_options[:template_name]
     options runit_options[:options]
@@ -75,6 +74,6 @@ define :mogilefs_tracker, :database => { :host => nil, :port => nil, :timeout =>
     restart_command runit_options[:restart_command] if runit_options.has_key?(:restart_command)
     status_command runit_options[:status_command] if runit_options.has_key?(:status_command)
     env runit_options[:env] if runit_options.has_key?(:env)
-    notifies :start, "service[#{service_name}]", :immediately
+    notifies :start, "service[#{params[:service_name]}]", :immediately
   end
 end
