@@ -1,5 +1,5 @@
 maintainer       "En Masse Entertainment"
-maintainer_email "jamie@enmasse.com"
+maintainer_email "jamie@vialstudios.com"
 license          "Apache 2.0"
 description      "Installs/Configures MogileFS"
 long_description "Refer to README.md, it's too long to IO.read."

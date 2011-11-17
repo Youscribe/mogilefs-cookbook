@@ -2,7 +2,7 @@
 # Cookbook Name:: mogilefs
 # Definition:: mogilefs_setting
 #
-# Author:: Jamie Winsor (<jamie@enmasse.com>)
+# Author:: Jamie Winsor (<jamie@vialstudios.com>)
 #
 # Copyright 2011, En Masse Entertainment, Inc.
 #
