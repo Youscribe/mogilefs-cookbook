@@ -20,6 +20,7 @@
 #
 
 include_recipe "perl"
+include_recipe "build-essential"
 
 cpan_module "YAML"
 cpan_module "MogileFS::Server"

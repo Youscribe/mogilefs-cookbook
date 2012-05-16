@@ -11,3 +11,4 @@ end
 
 depends 'perl', '~> 0.10.0'
 depends 'runit', '~> 0.14.2'
+depends 'build-essential'
