@@ -63,22 +63,42 @@ define :mogilefs_datastore, :ipaddress => nil, :port => nil, :hostname => nil, :
     group params[:group]
     mode 0755
   end
+ 
+  if node[:platform] == "ubuntu" and node[:platform_version].to_f >= 9.10
+    template "/etc/init/mogstored.conf" do
+      source "mogstored.conf-upstart.erb"
+      cookbook "mogilefs"
+    end
+
+    service "mogstored init" do
+      service_name "mogstored"
+      provider Chef::Provider::Service::Init
+      action [ :stop, :disable ]
+      only_if { ::File.exist?("/etc/init.d/mogstored") }
+    end
   
-  runit_service params[:service_name] do
-    cookbook runit_options[:cookbook]
-    template_name runit_options[:template_name]
-    options runit_options[:options]
-    run_restart runit_options[:run_restart]
-    directory runit_options[:directory] if runit_options.has_key?(:directory)
-    only_if runit_options[:only_if] if runit_options.has_key?(:only_if)
-    control runit_options[:control] if runit_options.has_key?(:control)
-    active_directory runit_options[:active_directory] if runit_options.has_key?(:active_directory)
-    owner runit_options[:owner] if runit_options.has_key?(:owner)
-    group runit_options[:group] if runit_options.has_key?(:group)
-    start_command runit_options[:start_command] if runit_options.has_key?(:start_command)
-    restart_command runit_options[:restart_command] if runit_options.has_key?(:restart_command)
-    status_command runit_options[:status_command] if runit_options.has_key?(:status_command)
-    env runit_options[:env] if runit_options.has_key?(:env)
-    notifies :start, "service[#{params[:service_name]}]", :immediately
+    service "mogstored" do
+      service_name "mogstored"
+      provider Chef::Provider::Service::Upstart
+      action [ :enable, :start ]
+    end
+  else
+    runit_service params[:service_name] do
+      cookbook runit_options[:cookbook]
+      template_name runit_options[:template_name]
+      options runit_options[:options]
+      run_restart runit_options[:run_restart]
+      directory runit_options[:directory] if runit_options.has_key?(:directory)
+      only_if runit_options[:only_if] if runit_options.has_key?(:only_if)
+      control runit_options[:control] if runit_options.has_key?(:control)
+      active_directory runit_options[:active_directory] if runit_options.has_key?(:active_directory)
+      owner runit_options[:owner] if runit_options.has_key?(:owner)
+      group runit_options[:group] if runit_options.has_key?(:group)
+      start_command runit_options[:start_command] if runit_options.has_key?(:start_command)
+      restart_command runit_options[:restart_command] if runit_options.has_key?(:restart_command)
+      status_command runit_options[:status_command] if runit_options.has_key?(:status_command)
+      env runit_options[:env] if runit_options.has_key?(:env)
+      notifies :start, "service[#{params[:service_name]}]", :immediately
+    end
   end
 end
