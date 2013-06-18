@@ -1,0 +1,15 @@
+# Mogilefs - MogileFS distributed filesystem
+#
+# 
+
+description "Mogilefs Mogstored"
+
+start on net-device-up
+stop on runlevel [!2345]
+
+respawn
+respawn limit 5 30
+
+oom never
+
+exec mogstored
