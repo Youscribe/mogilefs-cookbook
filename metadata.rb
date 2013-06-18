@@ -9,5 +9,5 @@ version          "0.2.5"
   supports os
 end
 
-depends 'perl', '~> 0.10.0'
-depends 'runit', '~> 0.14.2'
+depends 'perl', '>= 0.10.0'
+depends 'runit', '>= 0.14.2'
