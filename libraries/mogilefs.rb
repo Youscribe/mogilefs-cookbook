@@ -19,11 +19,7 @@
 # limitations under the License.
 #
 
-begin
-  require 'mogilefs'
-rescue LoadError
-  Chef::Log.warn("Missing gem 'mogilefs'")
-end
+require 'mogilefs'
 
 module EnMasse
   module MogileFS
