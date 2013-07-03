@@ -19,8 +19,6 @@
 # limitations under the License.
 #
 
-include EnMasse::MogileFS::Admin
-
 action :create do
   unless @domain.exists
     Chef::Log.info "[mogilefs_domain] creating domain #{new_resource.domain}"

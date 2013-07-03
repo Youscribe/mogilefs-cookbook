@@ -19,8 +19,6 @@
 # limitations under the License.
 #
 
-include EnMasse::MogileFS::Admin
-
 action :create do
   unless @device.exists
     Chef::Log.info "[mogilefs_device] creating device:#{new_resource.name} devid: #{new_resource.devid}"

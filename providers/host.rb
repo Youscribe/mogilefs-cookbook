@@ -19,8 +19,6 @@
 # limitations under the License.
 #
 
-include EnMasse::MogileFS::Admin
-
 action :create do
   unless @mfs_host.exists
     Chef::Log.info "[mogilefs_host] creating host #{new_resource.name}"

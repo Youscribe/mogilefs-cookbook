@@ -19,8 +19,6 @@
 # limitations under the License.
 #
 
-include EnMasse::MogileFS::Admin
-
 action :create do
   unless @klass.exists
     Chef::Log.info "[mogilefs_klass] creating class #{new_resource.klass}"

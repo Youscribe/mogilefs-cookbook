@@ -21,12 +21,6 @@
 
 require 'mogilefs'
 
-module EnMasse
-  module MogileFS
-    module Admin
-      def connection
-        @@connection ||= ::MogileFS::Admin.new(:hosts => new_resource.trackers)
-      end
-    end
-  end
+def connection
+  @@connection ||= ::MogileFS::Admin.new(:hosts => new_resource.trackers)
 end
