@@ -29,14 +29,7 @@ cpan_module "MogileFS::Utils"
 
 # Install mogeilfs-client gem for use later: 
 # http://wiki.opscode.com/display/chef/Evaluate+and+Run+Resources+at+Compile+Time
-g = gem_package "mogilefs-client" do
-  action :nothing
-end
-
-g.run_action(:install)
-
-Gem.clear_paths
-require 'mogilefs'
+chef_gem "mogilefs-client"
 
 user node[:mogilefs][:user] do
   comment "MogileFS unprivileged user"
