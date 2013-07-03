@@ -1,3 +1,4 @@
+name             "mogilefs"
 maintainer       "En Masse Entertainment"
 maintainer_email "jamie@vialstudios.com"
 license          "Apache 2.0"
@@ -11,4 +12,4 @@ end
 
 depends 'perl', '>= 0.10.0'
 depends 'runit', '>= 0.14.2'
-epends 'build-essential'
+depends 'build-essential'
