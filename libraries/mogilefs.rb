@@ -19,7 +19,11 @@
 # limitations under the License.
 #
 
-require 'mogilefs'
+begin
+  require 'mogilefs'
+rescue LoadError
+  Chef::Log.warn("Missing gem 'mogilefs'")
+end
 
 def connection
   @@connection ||= ::MogileFS::Admin.new(:hosts => new_resource.trackers)
