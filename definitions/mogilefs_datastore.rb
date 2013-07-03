@@ -20,7 +20,7 @@
 #
 
 define :mogilefs_datastore, :ipaddress => nil, :port => nil, :hostname => nil, :trackers => [], :http_listen => nil, :mgmt_listen => nil, :owner => "root", :group => "root", :cookbook => "mogilefs", :service_name => nil, :runit_options => Hash.new do
-  require_recipe "mogilefs"
+  include_recipe "mogilefs"
   
   params[:hostname] ||= params[:name]
   params[:service_name] ||= "mogstored"

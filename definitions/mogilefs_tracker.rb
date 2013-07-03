@@ -20,8 +20,8 @@
 #
 
 define :mogilefs_tracker, :database => { :host => nil, :port => nil, :timeout => nil, :username => nil, :password => nil }, :owner => "root", :group => "root", :cookbook => "mogilefs", :service_name => nil, :runit_options => Hash.new do
-  require_recipe "mogilefs"
-  require_recipe "runit"
+  include_recipe "mogilefs"
+  include_recipe "runit"
   
   params[:service_name] ||= "mogilefsd"
   params[:database][:port] ||= 3306

@@ -20,7 +20,7 @@
 #
 
 define :mogilefs_setting, :trackers => [], :setting => nil, :value => nil do
-  require_recipe "mogilefs"
+  include_recipe "mogilefs"
   
   params[:setting] ||= params[:name]
   

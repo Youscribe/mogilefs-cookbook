@@ -20,7 +20,7 @@
 #
 
 define :mogilefs_database, :root_username => nil, :root_password => nil, :host => nil, :username => nil, :password => nil, :type => "MySQL" do
-  require_recipe "mogilefs"
+  include_recipe "mogilefs"
 
   execute "Initialize MogileFS database schema on #{params[:host]}" do
     command "mogdbsetup --dbrootuser=#{params[:root_username]} --dbrootpass=#{params[:root_password]} --dbhost=#{params[:host]} --dbname=#{params[:name]} --dbuser=#{params[:username]} --dbpassword=#{params[:password]} --type=#{params[:type]} --yes"
